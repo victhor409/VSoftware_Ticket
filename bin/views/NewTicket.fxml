@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="341.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="341.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.NewTicketController">
    <children>
       <Label text="New Ticket">
          <VBox.margin>
@@ -56,22 +56,22 @@
                   <Insets left="50.0" />
                </GridPane.margin>
             </Label>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="txName" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="150.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="txClient" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="150.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <TextField fx:id="txCnpj" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets right="150.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <TextField fx:id="txDate" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets right="150.0" />
                </GridPane.margin>
@@ -79,7 +79,7 @@
             <Label prefHeight="16.0" prefWidth="109.0" text="DESCRIPTION" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
-      <TextArea prefHeight="73.0" prefWidth="492.0">
+      <TextArea fx:id="txDescription" prefHeight="73.0" prefWidth="492.0">
          <VBox.margin>
             <Insets bottom="10.0" left="70.0" right="10.0" top="10.0" />
          </VBox.margin>
@@ -93,12 +93,12 @@
           <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" text="Save">
+            <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Save">
                <GridPane.margin>
                   <Insets left="200.0" />
                </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Cancel" GridPane.columnIndex="1" />
+            <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Cancel" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </children>
