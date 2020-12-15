@@ -15,11 +15,12 @@
             <Label layoutX="37.0" layoutY="6.0" text="Tickets" />
             <TableView layoutX="31.0" layoutY="30.0" prefHeight="370.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="Id" />
-                <TableColumn prefWidth="75.0" text="Nome" />
-                  <TableColumn prefWidth="75.0" text="Cliente" />
-                  <TableColumn prefWidth="75.0" text="cnpj" />
-                  <TableColumn prefWidth="296.0" text="Data" />
+                <TableColumn fx:id="tableColumnId" prefWidth="75.0" text="Id" />
+                <TableColumn fx:id="tableColumnNome" prefWidth="75.0" text="Nome" />
+                  <TableColumn fx:id="tableColumnClient" prefWidth="75.0" text="Cliente" />
+                  <TableColumn fx:id="tableColumnCnpj" prefWidth="75.0" text="cnpj" />
+                  <TableColumn fx:id="tableColumnDate" minWidth="0.0" prefWidth="188.0" text="Data" />
+                  <TableColumn fx:id="tableColumnDescricao" prefWidth="404.0" text="Decricao" />
               </columns>
             </TableView>
          </children>

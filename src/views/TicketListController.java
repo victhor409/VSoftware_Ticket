@@ -3,10 +3,12 @@ package views;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
 import entities.Ticket;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,7 +18,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class TicketListController implements Initializable{
 	
@@ -38,6 +42,10 @@ public class TicketListController implements Initializable{
 	@FXML
 	private TableColumn<Ticket, Date> tableColumnDate;
 	
+	
+	@FXML
+	private TableColumn<Ticket, String> tableColumnDescricao;
+	
 	@FXML
 	private Button btNew;
 	
@@ -45,13 +53,13 @@ public class TicketListController implements Initializable{
 	public void OnBtAction() {
 		loadView("/views/NewTicket.fxml");
 	}
-
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		
 	}
-	
+
 	private synchronized void loadView(String absoluteName) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
@@ -70,5 +78,19 @@ public class TicketListController implements Initializable{
 		}
 	}
 	
-	
-}
+	//iniciar comportamento de coluna para os atributos da classe que sao colunas 
+		private void initializeNodes() {
+			tableColumnId.setCellValueFactory(new PropertyValueFactory<>("Id"));
+			tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("Nome"));
+			tableColumnClient.setCellValueFactory(new PropertyValueFactory<>("Cliente"));
+			tableColumnCnpj.setCellValueFactory(new PropertyValueFactory<>("cnpj"));
+			tableColumnDate.setCellValueFactory(new PropertyValueFactory<>("Data"));
+			tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("Descricao"));
+
+			
+
+
+		}
+
+		
+		}
