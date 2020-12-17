@@ -28,11 +28,12 @@ public class TicketDaoJDBC implements TicketDao {
 		try {
 			st = conn.prepareStatement("Insert into tbl_Ticket" + "(Name, Client, cnpj, Date, Descricao)" + "VALUES" + "(?,?,?,?,?)",
 					Statement.RETURN_GENERATED_KEYS);
-			st.setString(1, obj.getName());
-			st.setString(2, obj.getClient());
-			st.setLong(3, obj.getCnpj());
-			st.setDate(4, new java.sql.Date(obj.getDate().getTime()));
+			st.setString(1, obj.getNome());
+			st.setString(2, obj.getCliente());
+			st.setString(3, obj.getCnpj());
+			st.setDate(4, new java.sql.Date(obj.getDataTicket().getTime()));
 			st.setString(5, obj.getDescricao());
+			st.setInt(6, obj.getId());
 			int rowsAffected = st.executeUpdate();
 
 			if (rowsAffected > 0) {
@@ -65,10 +66,10 @@ public class TicketDaoJDBC implements TicketDao {
 					"SET Name=?, Client=?, cnpj=?, Date=?, Descricao=?" +
 					"WHERE Id = ?");
 
-				st.setString(1, obj.getName());
-				st.setString(2, obj.getClient());
-				st.setLong(3, obj.getCnpj());
-				st.setDate(4, new java.sql.Date(obj.getDate().getTime()));
+				st.setString(1, obj.getNome());
+				st.setString(2, obj.getCliente());
+				st.setString(3, obj.getCnpj());
+				st.setDate(4, new java.sql.Date(obj.getDataTicket().getTime()));
 				st.setString(5, obj.getDescricao());
 				st.setInt(6, obj.getId());
 
@@ -114,12 +115,12 @@ public class TicketDaoJDBC implements TicketDao {
 			rs = st.executeQuery();
 			if (rs.next()) {
 				Ticket obj = new Ticket();
-				obj.setId(rs.getInt("Id"));
-				obj.setName(rs.getString("Name"));
-				obj.setClient(rs.getString("Client"));
-				obj.setCnpj(rs.getLong("cnpj"));
-				obj.setDate(rs.getDate("Date"));
-				obj.setDescricao(rs.getString("Descricao"));
+				obj.setId(rs.getInt("id"));
+				obj.setNome(rs.getString("nome"));
+				obj.setCliente(rs.getString("cliente"));
+				obj.setCnpj(rs.getString("cnpj"));
+				obj.setDataTicket(rs.getDate("date"));
+				obj.setDescricao(rs.getString("descricao"));
 				return obj;
 			}
 			return null;
@@ -138,17 +139,17 @@ public class TicketDaoJDBC implements TicketDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT *FROM tbl_Ticket");
+			st = conn.prepareStatement("SELECT * FROM Ticket Order By nome;");
 			rs = st.executeQuery();
 			List<Ticket> list = new ArrayList<>();
 			while (rs.next()) {
 				Ticket obj = new Ticket();
 				obj.setId(rs.getInt("Id"));
-				obj.setName(rs.getString("Name"));
-				obj.setClient(rs.getString("Client"));
-				obj.setCnpj(rs.getLong("cnpj"));
-				obj.setDate(rs.getDate("Date"));
-				obj.setDescricao(rs.getString("Descricao"));
+				obj.setNome(rs.getString("nome"));
+				obj.setCliente(rs.getString("client"));
+				obj.setCnpj(rs.getString("cnpj"));
+				obj.setDataTicket(rs.getDate("dataTicket"));
+				obj.setDescricao(rs.getString("descricao"));
 				list.add(obj);
 			}
 			return list;

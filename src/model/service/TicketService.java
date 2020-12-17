@@ -1,5 +1,6 @@
 package model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import entities.Ticket;
@@ -8,12 +9,12 @@ import model.dao.TicketDao;
 
 public class TicketService {
 	
-	private TicketDao dao = DaoFactory.createDepartmentDao();
+	private TicketDao dao = DaoFactory.createTicketDao();
 	
 	public List<Ticket> findAll(){
-		 
-		return dao.findAll();
-		
+	
+	return dao.findAll();
+
 	}
 	
 

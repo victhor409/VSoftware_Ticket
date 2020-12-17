@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import application.Main;
 import entities.Ticket;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -21,8 +22,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.service.TicketService;
 
 public class TicketListController implements Initializable{
+	
+	private TicketService service;
 	
 	@FXML
 	private TableView<Ticket> tableViewTicket;
@@ -37,7 +41,7 @@ public class TicketListController implements Initializable{
 	private TableColumn<Ticket, String> tableColumnClient;
 	
 	@FXML
-	private TableColumn<Ticket, Long>  tableColumnCnpj;
+	private TableColumn<Ticket, String>  tableColumnCnpj;
 	
 	@FXML
 	private TableColumn<Ticket, Date> tableColumnDate;
@@ -49,13 +53,21 @@ public class TicketListController implements Initializable{
 	@FXML
 	private Button btNew;
 	
+	private ObservableList<Ticket> obsList;
+	
 	@FXML
 	public void OnBtAction() {
 		loadView("/views/NewTicket.fxml");
 	}
 	
+	public void setTicketService(TicketService service) {
+		this.service=service;
+	}
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		initializeNodes();
+		
 		
 		
 	}
@@ -81,15 +93,28 @@ public class TicketListController implements Initializable{
 	//iniciar comportamento de coluna para os atributos da classe que sao colunas 
 		private void initializeNodes() {
 			tableColumnId.setCellValueFactory(new PropertyValueFactory<>("Id"));
-			tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("Nome"));
-			tableColumnClient.setCellValueFactory(new PropertyValueFactory<>("Cliente"));
+			tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+			tableColumnClient.setCellValueFactory(new PropertyValueFactory<>("cliente"));
 			tableColumnCnpj.setCellValueFactory(new PropertyValueFactory<>("cnpj"));
-			tableColumnDate.setCellValueFactory(new PropertyValueFactory<>("Data"));
-			tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("Descricao"));
+			tableColumnDate.setCellValueFactory(new PropertyValueFactory<>("dataTicket"));
+			tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+			
+			Stage stage = (Stage) Main.getMainScene().getWindow();
+			tableViewTicket.prefHeightProperty().bind(stage.heightProperty());
 
 			
 
 
+		}
+		
+		public void updateTableView() {
+			if(service == null) {
+				throw new IllegalStateException("Serviço vazio");
+			}
+			List<Ticket> list = service.findAll();
+			obsList = FXCollections.observableArrayList(list);
+			tableViewTicket.setItems(obsList);
+			
 		}
 
 		

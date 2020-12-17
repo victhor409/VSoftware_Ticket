@@ -5,7 +5,7 @@ import DB.DB;
 
 public class DaoFactory {
 
-	public static TicketDao createDepartmentDao() {
+	public static TicketDao createTicketDao() {
 		return new TicketDaoJDBC(DB.getConnection());
 	}
 }

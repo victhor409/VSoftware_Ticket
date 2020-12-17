@@ -1,106 +1,81 @@
 package entities;
 
-import java.text.SimpleDateFormat;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class Ticket {
+public class Ticket implements Serializable{
 	
+	
+	private static final long serialVersionUID = 1L;
 	private Integer id;
-	private String Name;
-	private String client;
-	private Long cnpj;
-	private Date date;
-	
+	private String nome;
+	private String cliente;
+	private String cnpj;
+	private Date dataTicket;
 	private String descricao;
 	
-	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
-
 	public Ticket() {
 		
 	}
 
-	
-	public Ticket(Integer id, String name, String client, Long cnpj, Date date,String descricao) {
+	public Ticket(Integer id, String nome,String cliente, String cnpj, Date dataTicket, String descricao) {
 		super();
 		this.id = id;
-		Name = name;
-		this.client = client;
+		this.nome = nome;
+		this.cliente = cliente;
 		this.cnpj = cnpj;
-		this.date = date;
-		this.descricao=descricao;
+		this.dataTicket = dataTicket;
+		this.descricao = descricao;
 	}
-	
-	
-
 
 	public Integer getId() {
 		return id;
 	}
 
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-
-	public String getName() {
-		return Name;
+	
+	public String getNome() {
+		return nome;
 	}
 
-
-	public void setName(String name) {
-		Name = name;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-
-	public String getClient() {
-		return client;
+	public String getCliente() {
+		return cliente;
 	}
 
-
-	public void setClient(String client) {
-		this.client = client;
+	public void setCliente(String cliente) {
+		this.cliente = cliente;
 	}
 
-
-	public Long getCnpj() {
+	public String getCnpj() {
 		return cnpj;
 	}
 
-
-	public void setCnpj(Long cnpj) {
+	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
 
-
-	public Date getDate() {
-		return date;
+	public Date getDataTicket() {
+		return dataTicket;
 	}
 
-
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDataTicket(Date dataTicket) {
+		this.dataTicket = dataTicket;
 	}
 
-
-	public SimpleDateFormat getSdf() {
-		return sdf;
-	}
-
-
-	public void setSdf(SimpleDateFormat sdf) {
-		this.sdf = sdf;
-	}
-	
 	public String getDescricao() {
 		return descricao;
 	}
 
-
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -127,13 +102,15 @@ public class Ticket {
 		return true;
 	}
 
-
 	@Override
 	public String toString() {
-		return "Ticket [id=" + id + ", Name=" + Name + ", client=" + client + ", cnpj=" + cnpj + ", date=" + date
-				+ ", descricao=" + descricao + "]";
+		return "Ticket [id=" + id + ", nome=" + nome + ", cliente=" + cliente + ", cnpj=" + cnpj + ", dataTicket="
+				+ dataTicket + ", descricao=" + descricao + "]";
 	}
 
+	
+	
+	
 	
 	
 	
