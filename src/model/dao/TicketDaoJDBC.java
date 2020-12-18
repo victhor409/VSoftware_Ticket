@@ -26,7 +26,7 @@ public class TicketDaoJDBC implements TicketDao {
 	public void insert(Ticket obj) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("Insert into tbl_Ticket" + "(Name, Client, cnpj, Date, Descricao)" + "VALUES" + "(?,?,?,?,?)",
+			st = conn.prepareStatement("Insert into Ticket" + "(Name, Client, cnpj, Date, Descricao)" + "VALUES" + "(?,?,?,?,?)",
 					Statement.RETURN_GENERATED_KEYS);
 			st.setString(1, obj.getNome());
 			st.setString(2, obj.getCliente());
@@ -62,7 +62,7 @@ public class TicketDaoJDBC implements TicketDao {
 			
 			try {
 				st = conn.prepareStatement(
-					"UPDATE tbl_Ticket " +
+					"UPDATE Ticket " +
 					"SET Name=?, Client=?, cnpj=?, Date=?, Descricao=?" +
 					"WHERE Id = ?");
 
@@ -110,7 +110,7 @@ public class TicketDaoJDBC implements TicketDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("Select *from tbl_Ticket Where id=?");
+			st = conn.prepareStatement("Select *from Ticket Where id=?");
 			st.setInt(1, id);
 			rs = st.executeQuery();
 			if (rs.next()) {
@@ -139,14 +139,14 @@ public class TicketDaoJDBC implements TicketDao {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT * FROM Ticket Order By nome;");
+			st = conn.prepareStatement("SELECT * FROM Ticket ;");
 			rs = st.executeQuery();
 			List<Ticket> list = new ArrayList<>();
 			while (rs.next()) {
 				Ticket obj = new Ticket();
-				obj.setId(rs.getInt("Id"));
+				obj.setId(rs.getInt("id"));
 				obj.setNome(rs.getString("nome"));
-				obj.setCliente(rs.getString("client"));
+				obj.setCliente(rs.getString("cliente"));
 				obj.setCnpj(rs.getString("cnpj"));
 				obj.setDataTicket(rs.getDate("dataTicket"));
 				obj.setDescricao(rs.getString("descricao"));
