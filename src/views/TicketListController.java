@@ -2,6 +2,7 @@ package views;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -29,7 +30,7 @@ import javafx.stage.Stage;
 import model.service.TicketService;
 import util.Utils;
 
-public class TicketListController implements Initializable {
+public class TicketListController implements Initializable, DataChangeListene {
 
 	private TicketService service;
 
@@ -46,7 +47,7 @@ public class TicketListController implements Initializable {
 	private TableColumn<Ticket, String> tableColumnClient;
 
 	@FXML
-	private TableColumn<Ticket, String>  tableColumnCnpj;
+	private TableColumn<Ticket, String> tableColumnCnpj;
 
 	@FXML
 	private TableColumn<Ticket, Date> tableColumnDate;
@@ -59,6 +60,8 @@ public class TicketListController implements Initializable {
 
 	private ObservableList<Ticket> obsList;
 
+	
+
 	@FXML
 	public void OnBtAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
@@ -67,15 +70,13 @@ public class TicketListController implements Initializable {
 	}
 
 	public void setTicketService(TicketService service) {
-		this.service=service;
+		this.service = service;
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		initializeNodes();
-		
-		
-		
+
 	}
 
 	private void createDialogForm(Ticket obj, String absoluteName, Stage parentStage) {
@@ -86,7 +87,6 @@ public class TicketListController implements Initializable {
 			NewTicketController controller = loader.getController();
 			controller.setTicket(obj);
 			controller.setTicketService(new TicketService());
-			controller.loadAssociatedObjects();
 			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 
@@ -99,35 +99,39 @@ public class TicketListController implements Initializable {
 			dialogStage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();
-			
+
 		}
 	}
+
 	// iniciar comportamento de coluna para os atributos da classe que sao colunas
 	private void initializeNodes() {
-			tableColumnId.setCellValueFactory(new PropertyValueFactory<>("Id"));
-			tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-			tableColumnClient.setCellValueFactory(new PropertyValueFactory<>("cliente"));
-			tableColumnCnpj.setCellValueFactory(new PropertyValueFactory<>("cnpj"));
-			tableColumnDate.setCellValueFactory(new PropertyValueFactory<>("dataTicket"));
-			
-			tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-			
-			Stage stage = (Stage) Main.getMainScene().getWindow();
-			tableViewTicket.prefHeightProperty().bind(stage.heightProperty());
+		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("Id"));
+		tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		tableColumnClient.setCellValueFactory(new PropertyValueFactory<>("cliente"));
+		tableColumnCnpj.setCellValueFactory(new PropertyValueFactory<>("cnpj"));
+		tableColumnDate.setCellValueFactory(new PropertyValueFactory<>("dataTicket"));
 
-			
+		tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
 
+		Stage stage = (Stage) Main.getMainScene().getWindow();
+		tableViewTicket.prefHeightProperty().bind(stage.heightProperty());
 
-		}
+	}
 
 	public void updateTableView() {
-			if(service == null) {
-				throw new IllegalStateException("Serviço vazio");
-			}
-			List<Ticket> list = service.findAll();
-			obsList = FXCollections.observableArrayList(list);
-			tableViewTicket.setItems(obsList);
-			
+		if (service == null) {
+			throw new IllegalStateException("Serviço vazio");
 		}
+		List<Ticket> list = service.findAll();
+		obsList = FXCollections.observableArrayList(list);
+		tableViewTicket.setItems(obsList);
+		
+	}
+
+	@Override
+	public void onDataChanged() {
+		updateTableView();
+
+	}
 
 }

@@ -4,7 +4,9 @@ import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import DB.DbException;
@@ -53,6 +55,8 @@ public class NewTicketController implements Initializable {
 
 	private TicketService service;
 	
+	private List<DataChangeListene> dataChangeListeners = new ArrayList<>();
+	
 	
 	public void setTicket(Ticket entity) {
 		this.entity = entity;
@@ -61,6 +65,11 @@ public class NewTicketController implements Initializable {
 	public void setTicketService(TicketService service) {
 		this.service = service;
 	}
+	
+	public void subscribeDataChangeListener(DataChangeListene listener) {
+		dataChangeListeners.add(listener);
+	}
+	
 
 	@FXML
 	public void onBtSaveAction(ActionEvent event) {
@@ -75,11 +84,18 @@ public class NewTicketController implements Initializable {
 		try {
 			entity = getFormData();
 			service.saveOrUpdate(entity);
-			Utils.currentStage(event);
+			notifyDataChangeListeners();
+			Utils.currentStage(event).close();
 		} catch (ValidationException e) {
 			e.getMessage();
 		} catch (DbException e) {
 			Alerts.showAlert("Error saving object", null, e.getMessage(), AlertType.ERROR);
+		}
+	}
+	
+	private void notifyDataChangeListeners() {
+		for (DataChangeListene listener : dataChangeListeners) {
+			listener.onDataChanged();
 		}
 	}
 
@@ -144,6 +160,7 @@ public class NewTicketController implements Initializable {
 		Constraints.setTextFieldMaxLength(txClient, 30);
 		Constraints.setTextFieldMaxLength(txCnpj, 30);
 		Utils.formatDatePicker(txDate, "dd/MM/yyyy");
+		
 
 	}
 
@@ -162,11 +179,5 @@ public class NewTicketController implements Initializable {
 
 	}
 
-	public void loadAssociatedObjects() {
-
-	}
-
-	public void subscribeDataChangeListener(TicketListController ticketListController) {
-
-	}
+	
 }
