@@ -17,5 +17,14 @@ public class TicketService {
 
 	}
 	
+	public void saveOrUpdate(Ticket obj) {
+		if (obj.getId()==null) {
+			dao.insert(obj);
+		}
+		else {
+			dao.update(obj);
+		}
+	}
+	
 
 }

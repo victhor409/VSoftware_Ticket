@@ -26,14 +26,14 @@ public class TicketDaoJDBC implements TicketDao {
 	public void insert(Ticket obj) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("Insert into Ticket" + "(Name, Client, cnpj, Date, Descricao)" + "VALUES" + "(?,?,?,?,?)",
+			st = conn.prepareStatement("INSERT INTO Ticket" + "(nome, cliente, cnpj, dataTicket, descricao)" 
+					+ "VALUES" + "(?,?,?,?,?)",
 					Statement.RETURN_GENERATED_KEYS);
 			st.setString(1, obj.getNome());
 			st.setString(2, obj.getCliente());
 			st.setString(3, obj.getCnpj());
 			st.setDate(4, new java.sql.Date(obj.getDataTicket().getTime()));
 			st.setString(5, obj.getDescricao());
-			st.setInt(6, obj.getId());
 			int rowsAffected = st.executeUpdate();
 
 			if (rowsAffected > 0) {
@@ -63,7 +63,7 @@ public class TicketDaoJDBC implements TicketDao {
 			try {
 				st = conn.prepareStatement(
 					"UPDATE Ticket " +
-					"SET Name=?, Client=?, cnpj=?, Date=?, Descricao=?" +
+					"SET nome=?, cliente=?, cnpj=?, dataTicket=?, descricao=?" +
 					"WHERE Id = ?");
 
 				st.setString(1, obj.getNome());
@@ -91,7 +91,7 @@ public class TicketDaoJDBC implements TicketDao {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"DELETE FROM tbl_Ticket WHERE Id = ?");
+				"DELETE FROM Ticket WHERE Id = ?");
 
 			st.executeUpdate();
 		}
