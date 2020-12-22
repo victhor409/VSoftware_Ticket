@@ -19,8 +19,9 @@
                 <TableColumn fx:id="tableColumnNome" prefWidth="75.0" text="nome" />
                   <TableColumn fx:id="tableColumnClient" prefWidth="75.0" text="cliente" />
                   <TableColumn fx:id="tableColumnCnpj" prefWidth="75.0" text="cnpj" />
-                  <TableColumn fx:id="tableColumnDate" minWidth="0.0" prefWidth="188.0" text="dataTicket" />
-                  <TableColumn fx:id="tableColumnDescricao" prefWidth="404.0" text="decricao" />
+                  <TableColumn fx:id="tableColumnDate" minWidth="0.0" prefWidth="93.0" text="dataTicket" />
+                  <TableColumn fx:id="tableColumnDescricao" prefWidth="75.0" text="decricao" />
+                  <TableColumn fx:id="tableColumnEDIT" prefWidth="75.0" />
               </columns>
             </TableView>
          </children>

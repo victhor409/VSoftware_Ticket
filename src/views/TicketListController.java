@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 import application.Main;
 import entities.Ticket;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -54,6 +56,9 @@ public class TicketListController implements Initializable, DataChangeListene {
 
 	@FXML
 	private TableColumn<Ticket, String> tableColumnDescricao;
+	
+	@FXML
+	private TableColumn<Ticket, Ticket> tableColumnEDIT;
 
 	@FXML
 	private Button btNew;
@@ -80,6 +85,8 @@ public class TicketListController implements Initializable, DataChangeListene {
 	}
 
 	private void createDialogForm(Ticket obj, String absoluteName, Stage parentStage) {
+		
+	
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
@@ -125,6 +132,7 @@ public class TicketListController implements Initializable, DataChangeListene {
 		List<Ticket> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
 		tableViewTicket.setItems(obsList);
+		initEditButtons();
 		
 	}
 
@@ -133,5 +141,28 @@ public class TicketListController implements Initializable, DataChangeListene {
 		updateTableView();
 
 	}
+	
+	
+	private void initEditButtons() {
+		tableColumnEDIT.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnEDIT.setCellFactory(param -> new TableCell<Ticket, Ticket>() {
+		
+			private final Button button = new Button("edit");
+		
+		@Override
+		protected void updateItem(Ticket obj, boolean empty) {
+		   super.updateItem(obj, empty);
+		   if (obj == null) {
+		   setGraphic(null);
+		return;
+		   }
+		   setGraphic(button);
+		   button.setOnAction(
+		   event -> createDialogForm(
+		   obj, "/views/NewTicket.fxml",Utils.currentStage(event)));
+		}
+	
+	});
+}
 
 }
