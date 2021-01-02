@@ -117,7 +117,7 @@ public class TicketListController implements Initializable, DataChangeListene {
 		tableColumnClient.setCellValueFactory(new PropertyValueFactory<>("cliente"));
 		tableColumnCnpj.setCellValueFactory(new PropertyValueFactory<>("cnpj"));
 		tableColumnDate.setCellValueFactory(new PropertyValueFactory<>("dataTicket"));
-
+		
 		tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
 
 		Stage stage = (Stage) Main.getMainScene().getWindow();

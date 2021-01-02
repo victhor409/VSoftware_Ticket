@@ -122,12 +122,7 @@ public class NewTicketController implements Initializable {
 		}
 		obj.setCnpj(txCnpj.getText());
 
-		if (txDate.getValue() == null) {
-			exception.addError("Date", "Field can't be empty");
-		} else {
-			Instant instant = Instant.from(txDate.getValue().atStartOfDay(ZoneId.systemDefault()));
-			obj.setDataTicket(Date.from(instant));
-		}
+		
 		
 		if (txDescription.getText() == null || txDescription.getText().trim().equals("")) {
 			exception.addError("descricao", "Field can't be empty");
@@ -159,7 +154,7 @@ public class NewTicketController implements Initializable {
 		Constraints.setTextFieldMaxLength(txName, 30);
 		Constraints.setTextFieldMaxLength(txClient, 30);
 		Constraints.setTextFieldMaxLength(txCnpj, 30);
-		Utils.formatDatePicker(txDate, "dd/MM/yyyy");
+
 		
 
 	}
@@ -172,9 +167,7 @@ public class NewTicketController implements Initializable {
 		txName.setText(entity.getNome());
 		txClient.setText(entity.getCliente());
 		txCnpj.setText(entity.getCnpj());
-		if (entity.getDataTicket() != null) {
-			txDate.setValue(LocalDate.ofInstant(entity.getDataTicket().toInstant(), ZoneId.systemDefault()));
-		}
+		
 		txDescription.setText(entity.getDescricao());
 
 	}

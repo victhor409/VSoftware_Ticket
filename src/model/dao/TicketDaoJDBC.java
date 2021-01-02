@@ -32,7 +32,7 @@ public class TicketDaoJDBC implements TicketDao {
 			st.setString(1, obj.getNome());
 			st.setString(2, obj.getCliente());
 			st.setString(3, obj.getCnpj());
-			st.setDate(4, new java.sql.Date(obj.getDataTicket().getTime()));
+
 			st.setString(5, obj.getDescricao());
 			int rowsAffected = st.executeUpdate();
 
