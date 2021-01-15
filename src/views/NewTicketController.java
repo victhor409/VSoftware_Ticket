@@ -40,7 +40,7 @@ public class NewTicketController implements Initializable {
 	private TextField txCnpj;
 
 	@FXML
-	private DatePicker txDate;
+	private TextField txDate;
 
 	@FXML
 	private TextArea txDescription;
@@ -121,13 +121,18 @@ public class NewTicketController implements Initializable {
 			exception.addError("cnpj", "Field can't be empty");
 		}
 		obj.setCnpj(txCnpj.getText());
-
+		
+		if(txDate.getText()==null || txDate.getText().trim().equals("")) {
+			exception.addError("dataTicket", "Field can't be empty");
+		}
+		obj.setDataTicket(txDate.getText());
+		
 		
 		
 		if (txDescription.getText() == null || txDescription.getText().trim().equals("")) {
 			exception.addError("descricao", "Field can't be empty");
 		}
-		obj.setCliente(txDescription.getText());
+		obj.setDescricao(txDescription.getText());
 
 		if (exception.getErrors().size() > 0) {
 			throw exception;
@@ -167,7 +172,7 @@ public class NewTicketController implements Initializable {
 		txName.setText(entity.getNome());
 		txClient.setText(entity.getCliente());
 		txCnpj.setText(entity.getCnpj());
-		
+		txDate.setText(entity.getDataTicket());
 		txDescription.setText(entity.getDescricao());
 
 	}

@@ -2,7 +2,7 @@ package entities;
 
 
 import java.io.Serializable;
-import java.util.Date;
+
 
 public class Ticket implements Serializable{
 	
@@ -12,14 +12,14 @@ public class Ticket implements Serializable{
 	private String nome;
 	private String cliente;
 	private String cnpj;
-	private Date dataTicket;
+	private String dataTicket;
 	private String descricao;
 	
 	public Ticket() {
 		
 	}
 
-	public Ticket(Integer id, String nome,String cliente, String cnpj, Date dataTicket, String descricao) {
+	public Ticket(Integer id, String nome,String cliente, String cnpj, String dataTicket, String descricao) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -61,11 +61,11 @@ public class Ticket implements Serializable{
 		this.cnpj = cnpj;
 	}
 
-	public Date getDataTicket() {
+	public String getDataTicket() {
 		return dataTicket;
 	}
 
-	public void setDataTicket(Date dataTicket) {
+	public void setDataTicket(String dataTicket) {
 		this.dataTicket = dataTicket;
 	}
 

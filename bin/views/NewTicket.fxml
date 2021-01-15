@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.NewTicketController">
+<AnchorPane xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.NewTicketController">
    <children>
       <VBox prefHeight="341.0" prefWidth="550.0">
          <children>
@@ -75,6 +75,11 @@
                      </GridPane.margin>
                   </TextField>
                   <Label prefHeight="16.0" prefWidth="109.0" text="descricao" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="txDate" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets right="150.0" />
+                     </GridPane.margin>
+                  </TextField>
                </children>
             </GridPane>
             <TextArea fx:id="txDescription" prefHeight="73.0" prefWidth="492.0">

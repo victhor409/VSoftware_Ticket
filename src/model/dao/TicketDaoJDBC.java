@@ -32,7 +32,7 @@ public class TicketDaoJDBC implements TicketDao {
 			st.setString(1, obj.getNome());
 			st.setString(2, obj.getCliente());
 			st.setString(3, obj.getCnpj());
-
+			st.setString(4, obj.getDataTicket());
 			st.setString(5, obj.getDescricao());
 			int rowsAffected = st.executeUpdate();
 
@@ -69,7 +69,7 @@ public class TicketDaoJDBC implements TicketDao {
 				st.setString(1, obj.getNome());
 				st.setString(2, obj.getCliente());
 				st.setString(3, obj.getCnpj());
-				st.setDate(4, new java.sql.Date(obj.getDataTicket().getTime()));
+				st.setString(4, obj.getDataTicket());
 				st.setString(5, obj.getDescricao());
 				st.setInt(6, obj.getId());
 
@@ -119,7 +119,7 @@ public class TicketDaoJDBC implements TicketDao {
 				obj.setNome(rs.getString("nome"));
 				obj.setCliente(rs.getString("cliente"));
 				obj.setCnpj(rs.getString("cnpj"));
-				obj.setDataTicket(rs.getDate("date"));
+				obj.setDataTicket(rs.getString("date"));
 				obj.setDescricao(rs.getString("descricao"));
 				return obj;
 			}
@@ -148,7 +148,7 @@ public class TicketDaoJDBC implements TicketDao {
 				obj.setNome(rs.getString("nome"));
 				obj.setCliente(rs.getString("cliente"));
 				obj.setCnpj(rs.getString("cnpj"));
-				obj.setDataTicket(rs.getDate("dataTicket"));
+				obj.setDataTicket(rs.getString("dataTicket"));
 				obj.setDescricao(rs.getString("descricao"));
 				list.add(obj);
 			}
@@ -162,10 +162,6 @@ public class TicketDaoJDBC implements TicketDao {
 
 	}
 
-<<<<<<< HEAD
-=======
-	
-	
->>>>>>> c34e9c541c53676ed8769145916afe6c8f568e65
+
 
 }

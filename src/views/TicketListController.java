@@ -52,7 +52,7 @@ public class TicketListController implements Initializable, DataChangeListene {
 	private TableColumn<Ticket, String> tableColumnCnpj;
 
 	@FXML
-	private TableColumn<Ticket, Date> tableColumnDate;
+	private TableColumn<Ticket, String> tableColumnDate;
 
 	@FXML
 	private TableColumn<Ticket, String> tableColumnDescricao;
